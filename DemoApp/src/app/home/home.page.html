@@ -1,0 +1,47 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Démonstration Ionic
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Utilisation du composant TitleComponent ci-dessous -->
+  <app-title></app-title>
+
+  <!-- Interpolation de la variable hello et de l'expression "1 + 2" -->
+  <p>{{ hello }}</p>
+  <p>1 + {{ nb }} = {{ 1 + nb }}</p>
+
+  <!-- Liaison par évènement (event binding) -->
+  <button (click)="clickMe()">Cliquez ici</button>
+
+  <!-- Liaison par propriété (property binding) -->
+  <div [hidden]="isHidden">
+    Suis-je caché ?
+  </div>
+  <br><br>
+  <!-- Liaison à double sens ou two ways binding -->
+  <label>Entrez votre nom : </label>
+  <input type="text" placeholder="anonyme" [(ngModel)]="name">
+  
+  <!-- Utilisation de la directive ngStyle pour ajouter un style de manière dynamique sur un élément HTML-->
+  <p [ngStyle]="{'color': colorText}">
+    Bonjour {{ name }} !
+  </p>
+
+
+
+  <!-- Utilisation des directives structurelles *ngIf et *ngFor qui permettent de faire
+  respectivement des conditions et des boucles dans le HTML -->
+  <ul *ngIf="fruits.length > 0">
+    <li *ngFor="let fruit of fruits">{{ fruit }}</li>
+  </ul>
+
+  <!-- Utilisation de la directive ngClass qui applique une classe CSS sur un élément HTML 
+  si la condition est vraie -->
+  <p [ngClass]="{'green': nb < 10, 'orange': nb < 15 && nb >= 10, 'red': nb >= 15}">
+    Le nombre est : {{ nb }}
+  </p>
+</ion-content>
