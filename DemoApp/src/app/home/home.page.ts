@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, ToastController } from '@ionic/angular';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-home',
@@ -8,38 +8,38 @@ import { AlertController, ToastController } from '@ionic/angular';
 })
 export class HomePage {
 
-  expandProp: string = 'full';
+  nb: number = 0;
 
-  constructor(private alertCtrl: AlertController, private toastCtrl: ToastController) {}
+  constructor(private dataSrv: DataService) {
+    console.log("Home Page");
+    this.dataSrv.str = 'Hello';
+    console.log(this.dataSrv.str);
+  }
 
-  async showAlert() {
-    const alert = await this.alertCtrl.create({
-      header: "ALERTE !",
-      message: "Ceci est une alerte !",
-      buttons: ['OK'],
+  // Récupération d'un nombre aléatoire du service généré de manière synchrone
+  getNumber() {    
+    this.nb = this.dataSrv.getRandomNumber();
+  }
+
+  // Récupération asynchrone d'un nombre aléatoire à travers une promise
+  // qui est ensuite traitée avec les mots-clés then et catch.
+  getNumberThen() {
+    this.dataSrv.getRandomNumberPromise().then((result: number) => {
+      this.nb = result;
+    }).catch(error => {
+      console.log(error);
+    }).finally(() => {
+      console.log("Fin !");
     });
-    alert.present();
   }
 
-  async showToast() {
-    const toast = await this.toastCtrl.create({
-      header: 'Toast',
-      message: 'Toastons !',
-      duration: 5000,
-      position: 'bottom'
-    });
-    toast.present();
-  }
-
-  htmlBtn() {
-    this.expandProp = undefined;
-  }
-
-  ionBtn() {
-    if (this.expandProp == 'full') {
-      this.expandProp = 'block';
-    } else {
-      this.expandProp = 'full';
+  // Récupération asynchrone d'un nombre aléatoire à travers une promise
+  // grâce aux mots-clés async et await
+  async getNumberAsync() {
+    try {
+      this.nb = await this.dataSrv.getRandomNumberPromise();
+    } catch (error) {
+      console.log(error);
     }
   }
 }
