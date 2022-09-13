@@ -8,44 +8,39 @@
 
 <ion-content [fullscreen]="true">
   <div [hidden]="formIsHidden">
-    <div>
-      <label>Entrez votre pseudo : </label>
-      <br>
-      <input type="text" placeholder="anonyme" [(ngModel)]="pseudo">
-    </div>
-    <div>
-      <label for="level">Selectionner votre niveau : </label>
-      <br>
-      <select name="level" id="level-select" [(ngModel)]="level">
-          <option value="easy">Easy</option>
-          <option value="medium">Medium</option>
-          <option value="hard">Hard</option>
-      </select>
-    </div>
-    <div>
-      <input type="checkbox" id="save" name="save" checked>
-      <label for="save"> Mémoriser ces informations</label>
-    </div>
-    <div [hidden]="isHidden" [ngStyle]="{'color': colorTextError}">
-      {{ errorMessage }}
-    </div>
-    <div>
-      <button (click)="clickMe()">Commencer</button>
-    </div>
+    <ion-item>
+      <ion-label position="floating">votre pseudo</ion-label>
+      <ion-input type="text" [(ngModel)]="pseudo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Difficulté</ion-label>
+      <ion-select [(ngModel)]="level">
+          <ion-select-option value="easy">Easy</ion-select-option>
+          <ion-select-option value="medium">Medium</ion-select-option>
+          <ion-select-option value="hard">Hard</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-toggle type="checkbox" id="save" name="save"></ion-toggle>
+      <ion-label for="save">Sauvegarder ces informations</ion-label>
+    </ion-item>
+    <ion-button (click)="clickMe()" expand="full">Commencer</ion-button>
   </div>
 
   <div [hidden]="questionIsHidden">
     <div>
-      <p [ngStyle]="{'color': colorText}">
-        Bienvenue {{ pseudo }} !
-      </p>
-      <p>
-        De quelle couleur est le cheval blanc d'Henry IV
-      </p>
-      <button (click)="clickRequest()" *ngFor="let reponse of reponses">{{ reponse }}</button>
+      <ion-label color="primary">Bienvenue {{ pseudo }} !</ion-label><br>
+      <ion-label>De quelle couleur est le cheval blanc d'Henry IV</ion-label>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            <ion-button (click)="clickRequest()" *ngFor="let reponse of reponses"  expand="full">{{ reponse }}</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </div>
     <div [hidden]="questionSuivanteIsHidden">
-      <button>Question suivante</button>
+      <ion-button  expand="full" (click)="showToast()">Question suivante</ion-button>
     </div>
   </div>
 
