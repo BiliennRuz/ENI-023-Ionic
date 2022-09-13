@@ -1,0 +1,52 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Open Trivia
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div [hidden]="formIsHidden">
+    <div>
+      <label>Entrez votre pseudo : </label>
+      <br>
+      <input type="text" placeholder="anonyme" [(ngModel)]="pseudo">
+    </div>
+    <div>
+      <label for="level">Selectionner votre niveau : </label>
+      <br>
+      <select name="level" id="level-select" [(ngModel)]="level">
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+      </select>
+    </div>
+    <div>
+      <input type="checkbox" id="save" name="save" checked>
+      <label for="save"> Mémoriser ces informations</label>
+    </div>
+    <div [hidden]="isHidden" [ngStyle]="{'color': colorTextError}">
+      {{ errorMessage }}
+    </div>
+    <div>
+      <button (click)="clickMe()">Commencer</button>
+    </div>
+  </div>
+
+  <div [hidden]="questionIsHidden">
+    <div>
+      <p [ngStyle]="{'color': colorText}">
+        Bienvenue {{ pseudo }} !
+      </p>
+      <p>
+        De quelle couleur est le cheval blanc d'Henry IV
+      </p>
+      <button (click)="clickRequest()" *ngFor="let reponse of reponses">{{ reponse }}</button>
+    </div>
+    <div [hidden]="questionSuivanteIsHidden">
+      <button>Question suivante</button>
+    </div>
+  </div>
+
+</ion-content>
