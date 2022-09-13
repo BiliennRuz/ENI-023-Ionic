@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AlertController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -7,18 +8,38 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  hello: string = "Hello all !";
-  nb: number = 0;
-  isHidden: boolean = true;
-  name: string = "Titi";
-  fruits: string[] = ["papaye", "framboise", "citron", "kiwi", "banane"];
-  colorText: string = "#AA0000";
+  expandProp: string = 'full';
 
-  constructor() {}
+  constructor(private alertCtrl: AlertController, private toastCtrl: ToastController) {}
 
-  clickMe() {
-    this.hello = "Ce tombeau sera votre tombeau !";
-    this.nb++;
-    this.isHidden = !this.isHidden;
+  async showAlert() {
+    const alert = await this.alertCtrl.create({
+      header: "ALERTE !",
+      message: "Ceci est une alerte !",
+      buttons: ['OK'],
+    });
+    alert.present();
+  }
+
+  async showToast() {
+    const toast = await this.toastCtrl.create({
+      header: 'Toast',
+      message: 'Toastons !',
+      duration: 5000,
+      position: 'bottom'
+    });
+    toast.present();
+  }
+
+  htmlBtn() {
+    this.expandProp = undefined;
+  }
+
+  ionBtn() {
+    if (this.expandProp == 'full') {
+      this.expandProp = 'block';
+    } else {
+      this.expandProp = 'full';
+    }
   }
 }
