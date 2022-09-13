@@ -1,0 +1,7 @@
+{
+  "name": "MyOpenTrivia",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
