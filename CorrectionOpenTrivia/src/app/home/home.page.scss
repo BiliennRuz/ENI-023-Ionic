@@ -1,3 +1,15 @@
 .error {
   color: red;
 }
+
+.good {
+  --background: green;
+}
+
+.bad {
+  --background: red;
+}
+
+.unknow {
+  --background: grey;
+}
