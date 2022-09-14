@@ -11,4 +11,6 @@
   <ion-text class="ion-text-center">
     Nombre généré : {{ nb }}
   </ion-text>
+  <ion-button expand="full" (click)="getKitten()">Afficher un chat</ion-button>
+  <img [src]="kittenImg" alt="kitten">
 </ion-content>
