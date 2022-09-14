@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,26 +6,28 @@ import { Injectable } from '@angular/core';
 })
 export class OpenTriviaService {
 
-  constructor() { }
+  url: string = 'https://opentdb.com/api.php';
 
-  async getQuestions(difficulty: string) {
-    return [
-      {
-        category: "Entertainment: Japanese Anime & Manga",
-        type: "multiple",
-        difficulty: "easy",
-        question: "In &quot;Fairy Tail&quot;, what is the nickname of Natsu Dragneel?",
-        correct_answer: "The Salamander",
-        incorrect_answers: ["The Dragon Slayer", "The Dragon", "The Demon"]
-      },
-      { 
-        category: "Entertainment: Video Games", 
-        type: "boolean", 
-        difficulty: "medium", 
-        question: "&quot;Return to Castle Wolfenstein&quot; was the only game of the Wolfenstein series where you don&#039;t play as William &quot;B.J.&quot; Blazkowicz", 
-        correct_answer: "False", 
-        incorrect_answers: ["True"]
-      }
-    ];
+  constructor(private http: HttpClient) { }
+
+  getQuestions(difficulty: string): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.url + '?amount=2&difficulty=' + difficulty).toPromise().then((data: any) => {
+        console.log(data);
+        if (data.response_code === 0) {
+          resolve(data.results);
+        } else {
+          reject(new Error('Impossible de récupérer les questions ! Vérifiez votre connexion internet.'));
+        }
+      });
+    }); 
+  }
+
+  async getQuestionAsync(difficulty: string) {
+    let data: any = await this.http.get(this.url + '?amount=2&difficulty=' + difficulty).toPromise();
+    if (data.response_code === 0) {
+      return data.results;
+    }
+    return new Error('Impossible de récupérer les questions ! Vérifiez votre connexion internet.');
   }
 }

@@ -40,8 +40,17 @@ export class HomePage {
   }
 
   async loadListQuestions() {
-    this.listQuestions = await this.openTriviaSrv.getQuestions(this.difficulty);
-    this.loadCurrentQuestion();
+    try {
+      this.listQuestions = await this.openTriviaSrv.getQuestions(this.difficulty);
+      this.loadCurrentQuestion();
+    } catch (error) {
+      const toast = await this.toastCtrl.create({
+        message : 'Erreur : ' + error,
+        position: 'bottom',
+        duration: 5000
+      });
+      toast.present();
+    }
   }
 
   loadCurrentQuestion() {
