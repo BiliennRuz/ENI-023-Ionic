@@ -16,7 +16,7 @@ const routes: Routes = [
     loadChildren: () => import('./game/game.module').then( m => m.GamePageModule)
   },
   {
-    path: 'score',
+    path: 'score/:score',
     loadChildren: () => import('./score/score.module').then( m => m.ScorePageModule)
   },
 ];

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Answer } from '../models/answer';
 import { Question } from '../models/question';
@@ -24,9 +24,9 @@ export class GamePage implements OnInit {
   endGame: boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute, 
-    private navCtrl: NavController,
     private openTriviaSrv: OpenTriviaService,
-    private toastCtrl: ToastController) { }
+    private toastCtrl: ToastController,
+    private router: Router) { }
 
   ngOnInit() {
     this.pseudo = this.activatedRoute.snapshot.params.pseudo;
@@ -79,12 +79,14 @@ export class GamePage implements OnInit {
     
     if (this.indexQuestion === this.listQuestions.length - 1) {
       this.endGame = true;
-      const toast = await this.toastCtrl.create({
-        message : 'Bien joué ! Votre score est de : ' + this.score + ' points !',
-        position: 'bottom',
-        duration: 5000
-      });
-      toast.present();
+      this.router.navigate(['/score', this.score]);
+      console.log('/score', this.score);
+      // const toast = await this.toastCtrl.create({
+      //   message : 'Bien joué ! Votre score est de : ' + this.score + ' points !',
+      //   position: 'bottom',
+      //   duration: 5000
+      // });
+      // toast.present();
     }
   }
 
