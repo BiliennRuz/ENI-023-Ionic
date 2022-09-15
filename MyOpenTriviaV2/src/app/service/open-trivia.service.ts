@@ -16,6 +16,7 @@ export class OpenTriviaService {
   async getQuestions(difficulty: string): Promise<any[]> {
     return new Promise((resolve, reject) => {
       this.http.get(this.baseUrl + "/api.php?amount=2&difficulty=" + difficulty).toPromise().then((data: any) => {
+        console.log(this.baseUrl + "/api.php?amount=2&difficulty=" + difficulty);
         console.log(data);
         resolve(data.results);
         reject("Impossible de récupérer l'API : vérifiez votre connexion internet.");
