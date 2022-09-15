@@ -13,7 +13,6 @@ export class OpenTriviaService {
   getQuestions(difficulty: string): Promise<any[]> {
     return new Promise((resolve, reject) => {
       this.http.get(this.url + '?amount=2&difficulty=' + difficulty).toPromise().then((data: any) => {
-        console.log(data);
         if (data.response_code === 0) {
           resolve(data.results);
         } else {

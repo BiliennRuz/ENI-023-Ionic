@@ -7,39 +7,20 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <div *ngIf="!hideForm">
-    <ion-list>
-      <ion-item>
-        <ion-label position="floating">Votre pseudo</ion-label>
-        <ion-input type="text" [(ngModel)]="pseudo"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Difficulté</ion-label>
-        <ion-select [(ngModel)]="difficulty">
-          <ion-select-option *ngFor="let diff of difficulties">{{ diff }}</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-toggle></ion-toggle> Sauvegarder mes informations
-      </ion-item>
-      <ion-button expand="full" (click)="begin()">Commencer</ion-button>
-    </ion-list>
-  </div>
-
-  <div *ngIf="hideForm">
-    <ion-text color="primary">Bienvenue {{ pseudo }}</ion-text>
-    <h1 class="ion-text-center" [innerHTML]="currentQuestion?.question"></h1>
-    <ion-grid>
-      <ion-row>
-        <ion-col size="6" *ngFor="let response of currentQuestion?.answers">
-          <ion-button expand="full" class="ion-text-wrap" [ngClass]="{'good': nextQuestion && response.correct, 'bad': nextQuestion && !response.correct, 'unknow': !nextQuestion}" (click)="answer(response)">{{ response.answer }}</ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <div *ngIf="nextQuestion && !endGame">
-      <ion-button expand="full" (click)="loadNextQuestion()">Question suivante</ion-button>
-    </div>
-    <ion-button *ngIf="endGame" expand="full" (click)="playAgain()">Rejouer</ion-button>
-
-  </div>
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Votre pseudo</ion-label>
+      <ion-input type="text" [(ngModel)]="pseudo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Difficulté</ion-label>
+      <ion-select [(ngModel)]="difficulty">
+        <ion-select-option *ngFor="let diff of difficulties">{{ diff }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-toggle></ion-toggle> Sauvegarder mes informations
+    </ion-item>
+    <ion-button expand="full" (click)="begin()">Commencer</ion-button>
+  </ion-list>
 </ion-content>
