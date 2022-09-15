@@ -8,9 +8,23 @@ export class DataService {
 
   str: string = '';
   baseUrl: string = "https://cataas.com";
+  user: any = {
+    'name': '',
+    'id': 0,
+    'city': ''
+  };
+  data: any;
 
   constructor(private http: HttpClient) {
     console.log("Data Service");
+  }
+
+  getData() {
+    return this.data;
+  }
+
+  setData(d: any) {
+    this.data = d;
   }
 
   getCat(): Promise<string> {

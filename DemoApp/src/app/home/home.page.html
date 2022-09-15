@@ -7,10 +7,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <ion-button color="success" expand="full" (click)="getNumber()">Générer un nombre aléatoire</ion-button>
-  <ion-text class="ion-text-center">
-    Nombre généré : {{ nb }}
-  </ion-text>
-  <ion-button expand="full" (click)="getKitten()">Afficher un chat</ion-button>
-  <img [src]="kittenImg" alt="kitten">
+  <app-title [title]="'Bienvenue sur la home page'"></app-title>
+  <ion-button [routerLink]="['/about', 'Titi', 42]">Naviguer via le HTML</ion-button>
+  <ion-button (click)="goTo()">Naviguer via le TS</ion-button>
 </ion-content>

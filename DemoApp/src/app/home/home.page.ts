@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -9,56 +10,15 @@ import { DataService } from '../services/data.service';
 export class HomePage {
 
   nb: number = 0;
-  kittenImg: string = '';
+  name: string = 'Toto';
 
-  constructor(private dataSrv: DataService) {
-    console.log("Home Page");
-    this.dataSrv.str = 'Hello';
-    console.log(this.dataSrv.str);
+  constructor(private router: Router, private dataSrv: DataService) {
+    console.log("Home Page"); 
   }
 
-  // Traitement du résultat d'une requête, retournée par le service, grâce au mot-clé then
-  getKitten() {
-    this.dataSrv.getCat().then((img: any) => {
-      if (img.length > 1) {
-        this.kittenImg = img;
-      }
-    });
+  goTo() {
+    this.dataSrv.setData(this.name);
+    this.router.navigate(['/about', this.name, 42]);
   }
-
-  // Traitement du résultat d'une requête, retournée par le service, grâce aux mots-clés async / await
-  async getKittenAsync() {
-    try {
-      this.kittenImg = await this.dataSrv.getCat();
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  // Récupération d'un nombre aléatoire du service généré de manière synchrone
-  getNumber() {    
-    this.nb = this.dataSrv.getRandomNumber();
-  }
-
-  // Récupération asynchrone d'un nombre aléatoire à travers une promise
-  // qui est ensuite traitée avec les mots-clés then et catch.
-  getNumberThen() {
-    this.dataSrv.getRandomNumberPromise().then((result: number) => {
-      this.nb = result;
-    }).catch(error => {
-      console.log(error);
-    }).finally(() => {
-      console.log("Fin !");
-    });
-  }
-
-  // Récupération asynchrone d'un nombre aléatoire à travers une promise
-  // grâce aux mots-clés async et await
-  async getNumberAsync() {
-    try {
-      this.nb = await this.dataSrv.getRandomNumberPromise();
-    } catch (error) {
-      console.log(error);
-    }
-  }
+ 
 }
