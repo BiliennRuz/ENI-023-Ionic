@@ -46,12 +46,9 @@ export class HomePage {
           console.log('save difficulty: ' + this.difficulty);
         //};
       } else {
-        const removePseudo = async () => {
           await Preferences.remove({ key: 'pseudo' });
-        };
-        const removeDifficulty = async () => {
           await Preferences.remove({ key: 'difficulty' });
-        };
+          await Preferences.remove({ key: 'score' });
       }
       
       //this.hideForm = true;

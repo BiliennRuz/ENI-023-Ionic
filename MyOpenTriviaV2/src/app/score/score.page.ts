@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { Preferences } from '@capacitor/preferences';
 
 @Component({
   selector: 'app-score',
@@ -14,8 +15,12 @@ export class ScorePage implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
     private navCtrl: NavController) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.score = this.activatedRoute.snapshot.params.score;
+    await Preferences.set({
+      key: 'score',
+      value: this.score,
+    });
   }
 
   goHome() {
