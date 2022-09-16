@@ -4,6 +4,8 @@ import { ToastController } from '@ionic/angular';
 import { Answer } from '../models/answer';
 import { Question } from '../models/question';
 import { OpenTriviaService } from '../open-trivia.service';
+import { TextToSpeech } from '@capacitor-community/text-to-speech';
+import { Preferences } from '@capacitor/preferences';
 
 @Component({
   selector: 'app-game',
@@ -20,6 +22,7 @@ export class GamePage implements OnInit {
   indexQuestion: number = 0;
   score: number = 0;
   endGame: boolean = false;
+  saveInfos: string = 'false';
   
   constructor(private toastCtrl: ToastController, 
     private openTriviaSrv: OpenTriviaService, 
@@ -29,7 +32,22 @@ export class GamePage implements OnInit {
   ngOnInit() {
     this.pseudo = this.activatedRoute.snapshot.params.pseudo;
     this.difficulty = this.activatedRoute.snapshot.params.difficulty;
+    this.score = this.activatedRoute.snapshot.params.score;
+    this.saveInfos = this.activatedRoute.snapshot.params.saveInfos;
     this.loadListQuestions();
+  }
+
+  async speak() {
+    if (this.currentQuestion.question) {
+      await TextToSpeech.speak({
+        text: this.currentQuestion.question,
+        lang: 'en-US',
+        rate: 1.0,
+        pitch: 1.0,
+        volume: 1.0,
+        category: 'ambient',
+      });
+    }
   }
 
   async loadListQuestions() {
@@ -63,6 +81,9 @@ export class GamePage implements OnInit {
   async answer(response: Answer) {
     if (response.correct && !this.nextQuestion) {
       this.score++;
+      if (this.saveInfos == 'true') {
+        await Preferences.set({ key: 'score', value: this.score.toString() });
+      }
     }
     this.nextQuestion = true;
     this.showToast('Votre réponse est : ' + response.answer);

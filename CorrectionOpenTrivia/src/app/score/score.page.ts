@@ -12,7 +12,7 @@ export class ScorePage implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.score = this.activatedRoute.snapshot.params.score;
   }
 

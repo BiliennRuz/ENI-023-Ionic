@@ -12,7 +12,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'game/:pseudo/:difficulty',
+    path: 'game/:pseudo/:difficulty/:score/:saveInfos',
     loadChildren: () => import('./game/game.module').then( m => m.GamePageModule)
   },
   {
